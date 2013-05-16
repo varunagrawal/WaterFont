@@ -60,9 +60,3 @@ def printcoords(event):
 if __name__ == "__main__":
 
 	main()
-
-	"""
-	
-
-	
-	"""
