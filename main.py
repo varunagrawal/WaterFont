@@ -13,10 +13,18 @@ import Tkinter
 import tkFileDialog
 import Image, ImageTk
 
+def load_image():
+	#adding the image
+
+	File = tkFileDialog.askopenfilename(parent=root, initialdir="/home/varun/Pictures", title='Choose an image')
+	img = ImageTk.PhotoImage(Image.open(File))
+	return img
+
 
 def main():
 	root = Tkinter.Tk()
-
+	root.title("WaterFont")
+	
 	#Set up Tkinter Canvas with scrollbars
 	frame = Tkinter.Frame(root, bd=2, relief=Tkinter.SUNKEN)
 	frame.grid_rowconfigure(0, weight=1)
@@ -37,16 +45,19 @@ def main():
 	frame.pack(fill=Tkinter.BOTH,expand=1)
 		
 
-	#adding the image
-	File = tkFileDialog.askopenfilename(parent=root, initialdir="/home/varun/Pictures", title='Choose an image.')
-	img = ImageTk.PhotoImage(Image.open(File))
-
+	img = load_image()
+	
 	canvas.create_image(0, 0, image=img)
 	canvas.config(scrollregion=canvas.bbox(Tkinter.ALL))
 
 	#mouseclick event
 	canvas.bind("<Button 1>", printcoords)
-	
+
+	#Scroll using Mouse
+	#canvas.bind("<MouseWheel>", mouse_wheel) # For Windows. Test!!
+	canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
+	canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
+
 	root.mainloop()
 
 
@@ -55,6 +66,14 @@ def printcoords(event):
 	#outputting x and y coords to console
 	print (event.x,event.y)
 
+
+#function to be called when mouse is used to scroll
+def mouse_wheel(event):
+	global count
+	if event.num == 4:
+		canvas.xview('scroll', -1, 'units')
+	elif event.num == 5:
+		canvas.xview('scroll', 1, 'units')
 
 	
 if __name__ == "__main__":
