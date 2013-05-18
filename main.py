@@ -48,17 +48,18 @@ class App:
 		frame.grid_rowconfigure(0, weight=1)
 		frame.grid_columnconfigure(0, weight=1)
 		
-		xscroll = Tkinter.Scrollbar(frame, orient=Tkinter.HORIZONTAL)
-		xscroll.grid(row=1, column=0, sticky=Tkinter.E+Tkinter.W)
-		yscroll = Tkinter.Scrollbar(frame)
-		yscroll.grid(row=0, column=1, sticky=Tkinter.N+Tkinter.S)
-		
-		canvas = Tkinter.Canvas(frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+		#xscroll = Tkinter.Scrollbar(frame, orient=Tkinter.HORIZONTAL)
+		#xscroll.grid(row=1, column=0, sticky=Tkinter.E+Tkinter.W)
+		#yscroll = Tkinter.Scrollbar(frame)
+		#yscroll.grid(row=0, column=1, sticky=Tkinter.N+Tkinter.S)
+
+		canvas = Tkinter.Canvas(frame, bd=0)
+		#canvas = Tkinter.Canvas(frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
 		canvas.grid(row=0, column=0, sticky=Tkinter.N+Tkinter.S+Tkinter.E+Tkinter.W)
 		
 		
-		xscroll.config(command=canvas.xview)
-		yscroll.config(command=canvas.yview)
+		#xscroll.config(command=canvas.xview)
+		#yscroll.config(command=canvas.yview)
 		
 		frame.pack(fill=Tkinter.BOTH, expand=1)
 		
@@ -82,7 +83,14 @@ class App:
 def main():
 	root = Tkinter.Tk()
 	root.title("WaterFont")
+
 	"""
+	w, h = root.winfo_screenwidth(), root.winfo_screenheight()
+	root.overrideredirect(1)
+	root.geometry("%dx%d+0+0" % (w, h))
+	root.focus_set()
+	"""
+	
 	#Set up Tkinter Canvas with scrollbars
 	frame = Tkinter.Frame(root, bd=2, relief=Tkinter.SUNKEN)
 	frame.grid_rowconfigure(0, weight=1)
@@ -92,21 +100,22 @@ def main():
 	xscroll.grid(row=1, column=0, sticky=Tkinter.E+Tkinter.W)
 	yscroll = Tkinter.Scrollbar(frame)
 	yscroll.grid(row=0, column=1, sticky=Tkinter.N+Tkinter.S)
-	
+
+	#canvas = Tkinter.Canvas(frame, bd=0)
 	canvas = Tkinter.Canvas(frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
 	canvas.grid(row=0, column=0, sticky=Tkinter.N+Tkinter.S+Tkinter.E+Tkinter.W)
 	
 	
 	xscroll.config(command=canvas.xview)
 	yscroll.config(command=canvas.yview)
-	
-	frame.pack(fill=Tkinter.BOTH,expand=1)
-	
-	
+
 	img = load_image(root)
 	
 	canvas.create_image(0, 0, image=img)
 	canvas.config(scrollregion=canvas.bbox(Tkinter.ALL))
+	
+	frame.pack(fill=Tkinter.BOTH,expand=1)
+	
 	
 	#mouseclick event
 	canvas.bind("<Button 1>", printcoords)
@@ -115,9 +124,9 @@ def main():
 	#canvas.bind("<MouseWheel>", mouse_wheel) # For Windows. Test!!
 	canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
 	canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
-	"""
+	
 
-	app = App(root)
+	#app = App(root)
 	
 	root.mainloop()
 
