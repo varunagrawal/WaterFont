@@ -60,7 +60,7 @@ class App:
 		xscroll.config(command=canvas.xview)
 		yscroll.config(command=canvas.yview)
 		
-		frame.pack(fill=Tkinter.BOTH,expand=1)
+		frame.pack(fill=Tkinter.BOTH, expand=1)
 		
 		
 		img = load_image(root)
@@ -75,12 +75,14 @@ class App:
 		#canvas.bind("<MouseWheel>", mouse_wheel) # For Windows. Test!!
 		canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
 		canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
+
+
 		
 
 def main():
 	root = Tkinter.Tk()
 	root.title("WaterFont")
-
+	"""
 	#Set up Tkinter Canvas with scrollbars
 	frame = Tkinter.Frame(root, bd=2, relief=Tkinter.SUNKEN)
 	frame.grid_rowconfigure(0, weight=1)
@@ -113,9 +115,9 @@ def main():
 	#canvas.bind("<MouseWheel>", mouse_wheel) # For Windows. Test!!
 	canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
 	canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
+	"""
 
-
-	#app = App(root)
+	app = App(root)
 	
 	root.mainloop()
 
