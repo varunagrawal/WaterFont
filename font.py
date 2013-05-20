@@ -29,8 +29,8 @@ def watermark(file, text, font, text_pos, trans):
 	#watermark.save("watermark.jpg")
 	
 	img.paste(watermark, None, watermark)
-	img.save("temp-wm.jpg")	
 
+	return img
 
 	
 def main():
@@ -44,6 +44,9 @@ def main():
 
 	text_pos = (img.size[0]-170, img.size[1]-25)
 
+	img = watermark(file, font, text, text_pos, trans)
+
+	img.save("temp-wm.jpg")
 
 if __name__ == "__main__":
 	main()
