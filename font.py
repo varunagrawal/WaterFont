@@ -10,20 +10,12 @@ def select_font( font_path ):
 
 	return font
 
-def main():
-	font_file = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf"
-	font = select_font(font_file)
 
+def watermark(file, text, font, text_pos, trans):
 	img = Image.open("orig.jpg")
 	
-	text = "Varun Agrawal"
-
-	#Transparency of Text
-	trans = 120
-
 	#The Text to be written will be white with trans as the alpha value
 	t_color = (0, 0, 0, trans)
-	text_pos = (img.size[0]-170, img.size[1]-25)
 
 	
 	#Specify alpha as 0 to get transparent image on which to write
@@ -38,6 +30,19 @@ def main():
 	
 	img.paste(watermark, None, watermark)
 	img.save("temp-wm.jpg")	
+
+
+	
+def main():
+	font_file = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf"
+	font = select_font(font_file)
+
+	text = "Varun Agrawal"
+
+	#Transparency of Text
+	trans = 120
+
+	text_pos = (img.size[0]-170, img.size[1]-25)
 
 
 if __name__ == "__main__":
