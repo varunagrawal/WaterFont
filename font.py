@@ -5,8 +5,8 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 
-def select_font( font_path ):
-	font = ImageFont.truetype( font_path, 20 )
+def select_font( font_path, size ):
+	font = ImageFont.truetype( font_path, size )
 
 	return font
 

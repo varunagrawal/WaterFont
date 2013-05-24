@@ -5,6 +5,9 @@ from Tkinter import *
 import tkFileDialog
 import Image, ImageTk
 
+import font
+
+
 
 class GUI:
 
@@ -75,6 +78,17 @@ class GUI:
 		#coord_label.grid(sticky=E)
 		coord_label.grid(row=2)
 
+
+		# Label for font
+		fl = StringVar()
+		fl.set("No font")
+		font_label = Label(data_frame, textvariable=fl)
+		font_label.grid(row=3, column=0)
+		
+		# Button to select font
+		font_button = Button(data_frame, text="Select Font", command=self.getfont)
+		font_button.grid(row=3, column=1)
+		
 		data_frame.pack()
 
 		main_frame.pack(fill=BOTH, expand=1)
@@ -92,7 +106,11 @@ class GUI:
 		return img_frame, data_frame
 		
 		
-		
+	fnt = None	
+	def getfont(self):
+		font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
+		self.fnt = font.select_font(font_file, int(self.img.height*0.1))
+
 		
 
 	def load_image(self, root):

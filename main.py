@@ -32,7 +32,6 @@ def main():
 
 def test(File, trans, text_pos):
 	
-	
 	font_file = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf"
 	Font = font.select_font(font_file)
 	text = "Varun Agrawal"
