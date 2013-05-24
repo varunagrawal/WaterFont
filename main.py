@@ -78,29 +78,31 @@ def main():
 	File, img = load_image(root)
 	watermark_img = None
 	
-	"""
-	#Doesn't seem to work well
-	w, h = root.winfo_screenwidth(), root.winfo_screenheight()
-	root.overrideredirect(1)
-	root.geometry("%dx%d+0+0" % (w, h))
-	root.focus_set()
-	"""
-
 	canvas.create_image(0, 0, image=img)
 	canvas.config(scrollregion=canvas.bbox(Tkinter.ALL))
 	
 	frame.pack(fill=Tkinter.BOTH,expand=1)
 
+
+	#Scale Label
+	scale_label = Tkinter.Label(root, text="Opacity:")
+	scale_label.grid(column=0, sticky=Tkinter.W)
+	scale_label.pack()
+	
 	#Scale widget to select opacity
 	opacity_scale = Tkinter.Scale(root, from_=0, to=100, orient=Tkinter.HORIZONTAL, length=300)
+	opacity_scale.grid(column=1, sticky=Tkinter.W)
 	opacity_scale.pack()
 
 	#Label for coords
-	global x, y
 	v = Tkinter.StringVar()
 	v.set("Coordinates = x : None, y : None")
-	coord_label = Tkinter.Label(root, textvariable=v)
+	coord_label = Tkinter.Label(root, textvariable=v, borderwidth=20)
+	#coord_label.grid(sticky=E)
 	coord_label.pack()
+
+
+	
 	
 	#mouseclick event
 	canvas.bind("<Button 1>", lambda event: getcoords(event, v))
@@ -115,6 +117,7 @@ def main():
 	#Test suite
 	
 	opacity = opacity_scale.get()
+	#print opacity
 	
 	text_pos = (x, y)
 
