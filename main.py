@@ -20,15 +20,18 @@ def load_image(root):
 	File = tkFileDialog.askopenfilename(parent=root, initialdir="/home/varun/Pictures", title='Choose an image')
 	img = ImageTk.PhotoImage(Image.open(File))
 
-	return img
+	return File, img
 
 
 #function to be called when mouse is clicked
 x, y = None, None
-def getcoords(self, event):
+def getcoords(event, v):
 
 	global x, y
 	x, y = event.x, event.y
+
+	v.set("Coordinates = x : " + str(x) + ", y : " + str(y))
+	
 	#outputting x and y coords to console
 	print (event.x,event.y)
 
@@ -72,8 +75,9 @@ def main():
 	xscroll.config(command=canvas.xview)
 	yscroll.config(command=canvas.yview)
 
-	img = load_image(root)
-
+	File, img = load_image(root)
+	watermark_img = None
+	
 	"""
 	#Doesn't seem to work well
 	w, h = root.winfo_screenwidth(), root.winfo_screenheight()
@@ -90,35 +94,53 @@ def main():
 	#Scale widget to select opacity
 	opacity_scale = Tkinter.Scale(root, from_=0, to=100, orient=Tkinter.HORIZONTAL, length=300)
 	opacity_scale.pack()
-	
+
+	#Label for coords
+	global x, y
+	v = Tkinter.StringVar()
+	v.set("Coordinates = x : None, y : None")
+	coord_label = Tkinter.Label(root, textvariable=v)
+	coord_label.pack()
 	
 	#mouseclick event
-	canvas.bind("<Button 1>", getcoords)
+	canvas.bind("<Button 1>", lambda event: getcoords(event, v))
 	
 	#Scroll using Mouse
 	#canvas.bind("<MouseWheel>", mouse_wheel) # For Windows. Test!!
 	canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
 	canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
+
 	
 
+	#Test suite
+	
 	opacity = opacity_scale.get()
-
-	global x, y
+	
 	text_pos = (x, y)
 
-	test()
+	if x and y:
+		test(canvas, File, opacity, text_pos)
 
 	#app = App(root)
 	root.mainloop()
 
 
-def test():
+def test(File, trans, text_pos):
 	
 	
 	font_file = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf"
+	Font = font.select_font(font_file)
 	text = "Varun Agrawal"
-	
 
+	watermark_img = font.watermark(File, Font, text, text_pos, int(trans*255/100))
+
+	print opacity
+	print text_pos
+	
+	canvas.create_image(0, 0, image=watermark_img)
+	canvas.config(scrollregion=canvas.bbox(Tkinter.ALL))
+
+	
 	
 if __name__ == "__main__":
 

@@ -11,6 +11,7 @@ def select_font( font_path ):
 	return font
 
 
+
 def watermark(file, text, font, text_pos, trans):
 
 	#Open the image file
