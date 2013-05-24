@@ -2,6 +2,7 @@
 
 from Tkinter import *
 
+import os
 import tkFileDialog
 import Image, ImageTk
 
@@ -49,7 +50,7 @@ class GUI:
 		xscroll.config(command=canvas.xview)
 		yscroll.config(command=canvas.yview)
 		
-		self.File, self.img = self.load_image(self.root)
+		self.Files, self.img = self.load_image(self.root)
 		self.watermark_img = None
 		
 		canvas.create_image(0, 0, image=self.img)
@@ -68,7 +69,7 @@ class GUI:
 
 		
 		#Scale widget to select opacity
-		opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=300)
+		opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=200)
 		opacity_scale.grid(row=1, column=0, sticky=W)
 
 		
@@ -89,6 +90,15 @@ class GUI:
 		# Button to select font
 		font_button = Button(data_frame, text="Select Font", command=lambda: self.getfont(fl))
 		font_button.grid(row=3, column=1)
+
+
+		# Watermark buttons
+		watermark_button = Button(data_frame, text="Watermark", command=self.watermark_image)
+		watermark_button.grid(row=4, column=0)
+		done_button = Button(data_frame, text="Save", command=self.save_image)
+		done_button.grid(row=4, column=1)
+		next_button = Button(data_frame, text="Next", command=self.next_image)
+		next_button.grid(row=4, column=2)
 		
 		data_frame.pack()
 
@@ -105,6 +115,19 @@ class GUI:
 
 		
 		return img_frame, data_frame
+
+
+	def watermark_image(self):
+		#stuff
+		abc = 1
+
+	def save_image(self):
+		#save watermarked image
+		abc = 2
+		
+	def next_image(self):
+		#Get next image in directory
+		abc = 3
 		
 		
 	# Get the font from the user
@@ -123,10 +146,21 @@ class GUI:
 	def load_image(self, root):
 		#adding the image
 
-		File = tkFileDialog.askopenfilename(parent=root, initialdir="/home/varun/Pictures", title='Choose an image')
-		img = ImageTk.PhotoImage(Image.open(File))
+		# This function selects muliple files
+		#Files = tkFileDialog.askopenfilenames(parent=root, initialdir="/home/varun/Pictures", title='Choose an image')
+
+		# This function selects a directory
+		filedir = tkFileDialog.askdirectory(parent=root, initialdir="/home/varun/Pictures", title='Choose a directory', mustexist=True)
+		#print filedir
 		
-		return File, img
+		Files = os.listdir(filedir)
+				
+		self.count = 0
+		img = ImageTk.PhotoImage( Image.open( os.path.join(filedir, Files[self.count] ) ) ) 
+
+		self.count += 1
+
+		return Files, img
 
 
 	#function to be called when mouse is clicked
