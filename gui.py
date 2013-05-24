@@ -5,11 +5,12 @@ from Tkinter import *
 import tkFileDialog
 import Image, ImageTk
 
-class GUI(Frame):
+
+class GUI:
 
 	def __init__(self, root):
 
-		Frame.__init__(self, root)
+		#Frame.__init__(self, root)
 
 		self.root = root
 		
@@ -17,17 +18,20 @@ class GUI(Frame):
 
 	def initUI(self):
 
-		self.root.title = "WaterFont"
+		self.root.title("WaterFont")
+		main_frame = Frame(self.root)
+
 		
 		#Set up Tkinter Canvas with scrollbars
-		frame = Frame(self.root, bd=2, relief=SUNKEN)
-		frame.grid_rowconfigure(0, weight=1)
-		frame.grid_columnconfigure(0, weight=1)
+		img_frame = Frame(main_frame, bd=2, relief=SUNKEN)
+		img_frame.grid(row=0, column=0)
+		img_frame.grid_rowconfigure(0, weight=1)
+		img_frame.grid_columnconfigure(0, weight=1)
 		
 		#Get the scroll bars
-		xscroll, yscroll = self.scroll_bars()
+		xscroll, yscroll = self.scroll_bars(img_frame)
 
-		canvas = Canvas(self, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+		canvas = Canvas(img_frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
 		canvas.grid(row=0, column=0, sticky=N+S+E+W)
 	
 	
@@ -39,19 +43,20 @@ class GUI(Frame):
 	
 		canvas.create_image(0, 0, image=self.img)
 		canvas.config(scrollregion=canvas.bbox(ALL))
-	
-		self.pack(fill=BOTH,expand=1)
-		
+
+		main_frame.pack(fill=BOTH, expand=1)
+
+		data_frame = Frame(self.root, relief=RAISED)
 		
 		#Scale Label
 		scale_label = Label(self.root, text="Opacity:")
-		scale_label.grid(column=0, sticky=W)
-		scale_label.pack()
+		scale_label.grid(sticky=W)
+		scale_label.pack(side=LEFT)
 		
 		#Scale widget to select opacity
 		opacity_scale = Scale(self.root, from_=0, to=100, orient=HORIZONTAL, length=300)
 		opacity_scale.grid(column=1, sticky=W)
-		opacity_scale.pack()
+		opacity_scale.pack(side=LEFT)
 		
 		#Label for coords
 		v = StringVar()
@@ -59,6 +64,7 @@ class GUI(Frame):
 		coord_label = Label(self.root, textvariable=v, borderwidth=20)
 		#coord_label.grid(sticky=E)
 		coord_label.pack()
+		
 		
 		
 		#mouseclick event
@@ -102,10 +108,10 @@ class GUI(Frame):
 			canvas.xview('scroll', 1, 'units')
 			
 		
-	def scroll_bars(self):
-		xscroll = Scrollbar(self, orient=HORIZONTAL)
+	def scroll_bars(self, frame):
+		xscroll = Scrollbar(frame, orient=HORIZONTAL)
 		xscroll.grid(row=1, column=0, sticky=E+W)
-		yscroll = Scrollbar(self)
+		yscroll = Scrollbar(frame)
 		yscroll.grid(row=0, column=1, sticky=N+S)
 		
 		return xscroll, yscroll
