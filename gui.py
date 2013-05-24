@@ -20,8 +20,11 @@ class GUI:
 
 		self.root.title("WaterFont")
 		main_frame = Frame(self.root)
-
 		
+		
+		img_frame, data_frame = self.create_frames(main_frame)
+
+		"""
 		#Set up Tkinter Canvas with scrollbars
 		img_frame = Frame(main_frame, bd=2, relief=SUNKEN)
 		img_frame.grid(row=0, column=0)
@@ -30,42 +33,45 @@ class GUI:
 		
 		#Get the scroll bars
 		xscroll, yscroll = self.scroll_bars(img_frame)
-
+		
 		canvas = Canvas(img_frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
 		canvas.grid(row=0, column=0, sticky=N+S+E+W)
-	
-	
+		
+		
 		xscroll.config(command=canvas.xview)
 		yscroll.config(command=canvas.yview)
-
+		
 		self.File, self.img = self.load_image(self.root)
 		self.watermark_img = None
-	
+		
 		canvas.create_image(0, 0, image=self.img)
 		canvas.config(scrollregion=canvas.bbox(ALL))
+		
+		img_frame.pack()
 
 		main_frame.pack(fill=BOTH, expand=1)
-
+		
+		
 		data_frame = Frame(self.root, relief=RAISED)
 		
 		#Scale Label
-		scale_label = Label(self.root, text="Opacity:")
-		scale_label.grid(sticky=W)
-		scale_label.pack(side=LEFT)
+		scale_label = Label(data_frame, text="Opacity:")
+		scale_label.grid(row=0, column=0, sticky=W)
+		#scale_label.pack(side=LEFT)
 		
 		#Scale widget to select opacity
-		opacity_scale = Scale(self.root, from_=0, to=100, orient=HORIZONTAL, length=300)
-		opacity_scale.grid(column=1, sticky=W)
-		opacity_scale.pack(side=LEFT)
+		opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=300)
+		opacity_scale.grid(row=1, column=0, sticky=W)
+		#opacity_scale.pack(side=LEFT)
 		
 		#Label for coords
 		v = StringVar()
 		v.set("Coordinates = x : None, y : None")
-		coord_label = Label(self.root, textvariable=v, borderwidth=20)
+		coord_label = Label(data_frame, textvariable=v, borderwidth=20)
 		#coord_label.grid(sticky=E)
-		coord_label.pack()
-		
-		
+		coord_label.grid(row=2)
+
+		data_frame.pack()
 		
 		#mouseclick event
 		canvas.bind("<Button 1>", lambda event: self.getcoords(event, v))
@@ -75,6 +81,74 @@ class GUI:
 		canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
 		canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
 
+		"""
+		
+		
+	
+		
+	def create_frames(self, main_frame):
+			
+		#Set up Tkinter Canvas with scrollbars
+		img_frame = Frame(main_frame, bd=2, relief=SUNKEN)
+		img_frame.grid(row=0, column=0)
+		img_frame.grid_rowconfigure(0, weight=1)
+		img_frame.grid_columnconfigure(0, weight=1)
+		
+		#Get the scroll bars
+		xscroll, yscroll = self.scroll_bars(img_frame)
+		
+		canvas = Canvas(img_frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+		canvas.grid(row=0, column=0, sticky=N+S+E+W)
+		
+		
+		xscroll.config(command=canvas.xview)
+		yscroll.config(command=canvas.yview)
+		
+		self.File, self.img = self.load_image(self.root)
+		self.watermark_img = None
+		
+		canvas.create_image(0, 0, image=self.img)
+		canvas.config(scrollregion=canvas.bbox(ALL))
+		
+		img_frame.pack()
+
+		main_frame.pack(fill=BOTH, expand=1)
+		
+		
+		data_frame = Frame(self.root, relief=RAISED)
+		
+		#Scale Label
+		scale_label = Label(data_frame, text="Opacity:")
+		scale_label.grid(row=0, column=0, sticky=W)
+		#scale_label.pack(side=LEFT)
+		
+		#Scale widget to select opacity
+		opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=300)
+		opacity_scale.grid(row=1, column=0, sticky=W)
+		#opacity_scale.pack(side=LEFT)
+		
+		#Label for coords
+		v = StringVar()
+		v.set("Coordinates = x : None, y : None")
+		coord_label = Label(data_frame, textvariable=v, borderwidth=20)
+		#coord_label.grid(sticky=E)
+		coord_label.grid(row=2)
+
+		data_frame.pack()
+		
+		#mouseclick event
+		canvas.bind("<Button 1>", lambda event: self.getcoords(event, v))
+		
+		#Scroll using Mouse
+		#canvas.bind("<MouseWheel>", self.mouse_wheel) # For Windows. Test!!
+		canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
+		canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
+
+		
+		return img_frame, data_frame
+		
+		
+		
 		
 
 	def load_image(self, root):
