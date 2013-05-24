@@ -12,7 +12,9 @@ def select_font( font_path ):
 
 
 def watermark(file, text, font, text_pos, trans):
-	img = Image.open("orig.jpg")
+
+	#Open the image file
+	img = Image.open(file)
 	
 	#The Text to be written will be white with trans as the alpha value
 	t_color = (0, 0, 0, trans)

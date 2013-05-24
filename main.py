@@ -83,13 +83,7 @@ class App:
 def main():
 	root = Tkinter.Tk()
 	root.title("WaterFont")
-
-	"""
-	w, h = root.winfo_screenwidth(), root.winfo_screenheight()
-	root.overrideredirect(1)
-	root.geometry("%dx%d+0+0" % (w, h))
-	root.focus_set()
-	"""
+	
 	
 	#Set up Tkinter Canvas with scrollbars
 	frame = Tkinter.Frame(root, bd=2, relief=Tkinter.SUNKEN)
@@ -110,11 +104,22 @@ def main():
 	yscroll.config(command=canvas.yview)
 
 	img = load_image(root)
-	
+
+	"""
+	#Doesn't seem to work well
+	w, h = root.winfo_screenwidth(), root.winfo_screenheight()
+	root.overrideredirect(1)
+	root.geometry("%dx%d+0+0" % (w, h))
+	root.focus_set()
+	"""
+
 	canvas.create_image(0, 0, image=img)
 	canvas.config(scrollregion=canvas.bbox(Tkinter.ALL))
 	
 	frame.pack(fill=Tkinter.BOTH,expand=1)
+
+	opacity_scale = Tkinter.Scale(root, from_=0, to=100, orient=Tkinter.HORIZONTAL, length=300)
+	opacity_scale.pack()
 	
 	
 	#mouseclick event
@@ -128,10 +133,14 @@ def main():
 
 	#app = App(root)
 	
+	
 	root.mainloop()
 
 
-
+def test():
+	opacity = opacity_scale.get()
+	font_file = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf"
+	
 	
 if __name__ == "__main__":
 
