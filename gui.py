@@ -11,6 +11,7 @@ import font
 
 class GUI:
 
+	
 	def __init__(self, root):
 
 		#Frame.__init__(self, root)
@@ -64,12 +65,12 @@ class GUI:
 		#Scale Label
 		scale_label = Label(data_frame, text="Opacity:")
 		scale_label.grid(row=0, column=0, sticky=W)
-		#scale_label.pack(side=LEFT)
+
 		
 		#Scale widget to select opacity
 		opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=300)
 		opacity_scale.grid(row=1, column=0, sticky=W)
-		#opacity_scale.pack(side=LEFT)
+
 		
 		#Label for coords
 		v = StringVar()
@@ -86,7 +87,7 @@ class GUI:
 		font_label.grid(row=3, column=0)
 		
 		# Button to select font
-		font_button = Button(data_frame, text="Select Font", command=self.getfont)
+		font_button = Button(data_frame, text="Select Font", command=lambda: self.getfont(fl))
 		font_button.grid(row=3, column=1)
 		
 		data_frame.pack()
@@ -106,10 +107,16 @@ class GUI:
 		return img_frame, data_frame
 		
 		
-	fnt = None	
-	def getfont(self):
+	# Get the font from the user
+	def getfont(self, fl):
+
+		# Change the initial dir for Windows
 		font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
-		self.fnt = font.select_font(font_file, int(self.img.height*0.1))
+		
+		font_type = font_file.split('/')[-1]
+		fl.set(font_type)
+
+		self.fnt = font.select_font(font_file, int(self.img.height()*0.1))
 
 		
 
@@ -123,7 +130,6 @@ class GUI:
 
 
 	#function to be called when mouse is clicked
-	x, y = None, None
 	def getcoords(self, event, v):
 		
 		self.x, self.y = event.x, event.y
