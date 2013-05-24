@@ -50,7 +50,7 @@ class GUI:
 		xscroll.config(command=canvas.xview)
 		yscroll.config(command=canvas.yview)
 		
-		self.Files, self.img = self.load_image(self.root)
+		self.load_image(self.root)
 		self.watermark_img = None
 		
 		canvas.create_image(0, 0, image=self.img)
@@ -151,16 +151,13 @@ class GUI:
 
 		# This function selects a directory
 		filedir = tkFileDialog.askdirectory(parent=root, initialdir="/home/varun/Pictures", title='Choose a directory', mustexist=True)
-		#print filedir
-		
-		Files = os.listdir(filedir)
+		self.Files = os.listdir(filedir)
 				
 		self.count = 0
-		img = ImageTk.PhotoImage( Image.open( os.path.join(filedir, Files[self.count] ) ) ) 
+		self.img = ImageTk.PhotoImage( Image.open( os.path.join(filedir, Files[self.count] ) ) ) 
 
 		self.count += 1
 
-		return Files, img
 
 
 	#function to be called when mouse is clicked
