@@ -126,6 +126,7 @@ class GUI:
 		#save watermarked image
 		abc = 2
 
+
 	#Get next image in directory
 	def next_image(self, canvas):
 
@@ -141,24 +142,9 @@ class GUI:
 				
 			self.count += 1
 			canvas.create_image(0, 0, image=self.img)
-			
+
 
 			
-		
-		
-		
-	# Get the font from the user
-	def getfont(self, fl):
-
-		# Change the initial dir for Windows
-		font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
-		
-		font_type = font_file.split('/')[-1]
-		fl.set(font_type)
-
-		self.fnt = font.select_font(font_file, int(self.img.height()*0.1))
-
-		
 
 	def load_image(self, root):
 		#adding the image
@@ -174,6 +160,20 @@ class GUI:
 		self.img = ImageTk.PhotoImage( Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) ) 
 
 		self.count += 1
+			
+		
+		
+		
+	# Get the font from the user
+	def getfont(self, fl):
+
+		# Change the initial dir for Windows
+		font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
+		
+		font_type = font_file.split('/')[-1]
+		fl.set(font_type)
+
+		self.textfont = font.select_font(font_file, int(self.img.height()*0.1))
 
 
 
