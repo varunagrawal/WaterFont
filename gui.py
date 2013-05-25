@@ -129,7 +129,7 @@ class GUI:
 	def next_image(self, canvas):
 
 		if self.count >= len(self.Files):
-			tkMessageBox.showinfo("End of images", "No more images to display")
+			tkMessageBox.showerror("End of images", "No more images to display")
 		else:
 			
 			try:
