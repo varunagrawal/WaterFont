@@ -3,24 +3,24 @@
 from Tkinter import *
 
 import os
-import tkFileDialog
+import tkFileDialog, tkMessageBox
 import Image, ImageTk
 
 import font
 
 
-
+# wrapper class for GUI
 class GUI:
 
 	
 	def __init__(self, root):
 
-		#Frame.__init__(self, root)
-
 		self.root = root
 		
 		self.initUI()
 
+
+		
 	def initUI(self):
 
 		self.root.title("WaterFont")
@@ -97,7 +97,7 @@ class GUI:
 		watermark_button.grid(row=4, column=0)
 		done_button = Button(data_frame, text="Save", command=self.save_image)
 		done_button.grid(row=4, column=1)
-		next_button = Button(data_frame, text="Next", command=self.next_image)
+		next_button = Button(data_frame, text="Next", command=lambda: self.next_image(canvas))
 		next_button.grid(row=4, column=2)
 		
 		data_frame.pack()
@@ -124,10 +124,19 @@ class GUI:
 	def save_image(self):
 		#save watermarked image
 		abc = 2
-		
-	def next_image(self):
-		#Get next image in directory
-		abc = 3
+
+	#Get next image in directory
+	def next_image(self, canvas):
+
+		if self.count < len(self.Files):
+			self.img = ImageTk.PhotoImage( Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) ) 
+			self.count += 1
+			canvas.create_image(0, 0, image=self.img)
+			
+		else:
+			tkMessageBox.showerror("End of images", "No more images to display")
+			
+		ab
 		
 		
 	# Get the font from the user
@@ -150,11 +159,11 @@ class GUI:
 		#Files = tkFileDialog.askopenfilenames(parent=root, initialdir="/home/varun/Pictures", title='Choose an image')
 
 		# This function selects a directory
-		filedir = tkFileDialog.askdirectory(parent=root, initialdir="/home/varun/Pictures", title='Choose a directory', mustexist=True)
-		self.Files = os.listdir(filedir)
+		self.filedir = tkFileDialog.askdirectory(parent=root, initialdir="/home/varun/Pictures", title='Choose a directory', mustexist=True)
+		self.Files = os.listdir(self.filedir)
 				
 		self.count = 0
-		self.img = ImageTk.PhotoImage( Image.open( os.path.join(filedir, Files[self.count] ) ) ) 
+		self.img = ImageTk.PhotoImage( Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) ) 
 
 		self.count += 1
 
