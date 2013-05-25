@@ -79,7 +79,6 @@ class GUI:
 		v = StringVar()
 		v.set("Coordinates = x : None, y : None")
 		coord_label = Label(data_frame, textvariable=v, borderwidth=20)
-		#coord_label.grid(sticky=E)
 		coord_label.grid(row=2)
 
 
