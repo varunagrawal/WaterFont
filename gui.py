@@ -60,6 +60,8 @@ class GUI:
 
 		main_frame.pack(fill=BOTH, expand=1)
 		
+
+		#Data Frame starts here
 		
 		data_frame = Frame(self.root, relief=RAISED)
 		
@@ -69,8 +71,8 @@ class GUI:
 
 		
 		#Scale widget to select opacity
-		opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=200)
-		opacity_scale.grid(row=1, column=0, sticky=W)
+		self.opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=300)
+		self.opacity_scale.grid(row=1, column=0, sticky=W)
 
 		
 		#Label for coords

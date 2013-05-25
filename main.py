@@ -12,21 +12,26 @@ import Tkinter
 import tkFileDialog
 import Image, ImageTk
 
+import gui
 
 
 def main():
 
+	root = Tk()
+	app = gui.GUI(root)
+
+	
 	#Test suite
 	
 	opacity = opacity_scale.get()
-	#print opacity
+	print opacity
 	
 	text_pos = (x, y)
 
 	if x and y:
 		test(canvas, File, opacity, text_pos)
 
-	#app = App(root)
+
 	root.mainloop()
 
 
