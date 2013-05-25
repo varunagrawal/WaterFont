@@ -131,9 +131,12 @@ class GUI:
 		if self.count >= len(self.Files):
 			tkMessageBox.showinfo("End of images", "No more images to display")
 		else:
+			
 			try:
 				self.img = ImageTk.PhotoImage( Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) )
+
 			except IOError:
+				print "Not an image file"
 				
 			self.count += 1
 			canvas.create_image(0, 0, image=self.img)
