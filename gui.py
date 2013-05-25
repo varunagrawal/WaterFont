@@ -136,7 +136,7 @@ class GUI:
 		else:
 			tkMessageBox.showerror("End of images", "No more images to display")
 			
-		ab
+		
 		
 		
 	# Get the font from the user
