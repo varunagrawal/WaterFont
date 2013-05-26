@@ -1,4 +1,9 @@
-# GUI Module
+#
+#    GUI Module
+#
+#    Author:    Varun Agrawal
+#
+#
 
 from Tkinter import *
 
