@@ -35,6 +35,9 @@ def watermark(img_file, text, wfont, text_pos, trans):
 
 	
 def main():
+
+	#Test suite
+	
 	font_file = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf"
 	wfont = select_font(font_file, 20)
 
