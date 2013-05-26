@@ -2,9 +2,8 @@
 
 # Create GUI. Use TKinter for cross-platform support
 
-#Should be able to load fonts
 #Should show the watermark
-#Option for multiple images
+
 
 
 import font
