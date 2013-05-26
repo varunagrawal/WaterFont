@@ -4,16 +4,16 @@ from PIL import Image, ImageFont, ImageDraw
 
 
 def select_font( font_path, size ):
-	font = ImageFont.truetype( font_path, size )
+	wfont = ImageFont.truetype( font_path, size )
 
-	return font
+	return wfont
 
 
 
-def watermark(file, text, font, text_pos, trans):
+def watermark(img_file, text, wfont, text_pos, trans):
 
 	#Open the image file
-	img = Image.open(file)
+	img = Image.open(img_file)
 	
 	#The Text to be written will be white with trans as the alpha value
 	t_color = (0, 0, 0, trans)
@@ -24,7 +24,7 @@ def watermark(file, text, font, text_pos, trans):
 
 
 	waterdraw = ImageDraw.Draw(watermark, "RGBA")
-	waterdraw.text(text_pos, text, fill=t_color, font=font)
+	waterdraw.text(text_pos, text, fill=t_color, font=wfont)
 
 	
 	#watermark.save("watermark.jpg")
@@ -36,16 +36,18 @@ def watermark(file, text, font, text_pos, trans):
 	
 def main():
 	font_file = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf"
-	font = select_font(font_file)
+	wfont = select_font(font_file, 20)
 
 	text = "Varun Agrawal"
 
 	#Transparency of Text
 	trans = 120
 
+	img_file = "orig.jpg"
+	img = Image.open(img_file)
 	text_pos = (img.size[0]-170, img.size[1]-25)
 
-	img = watermark(file, font, text, text_pos, trans)
+	img = watermark(img_file, text, wfont, text_pos, trans)
 
 	img.save("temp-wm.jpg")
 
