@@ -2,8 +2,8 @@
 
 # Create GUI. Use TKinter for cross-platform support
 
-#Should show the watermark
-
+# Should show the watermark
+# Add doc strings to all functions
 
 
 import font
