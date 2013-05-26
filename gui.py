@@ -20,6 +20,22 @@ class GUI:
 		self.initUI()
 
 
+		# Instance Variables init
+		self.canvas = None
+		self.opacity_scale = None
+		
+		self.filedir = None
+		self.Files = None
+				
+		self.count = None
+		self.img = None
+		self.watermark_img = None
+
+		self.textfont = None
+		self.x, self.y = None, None
+
+		# Done initializing instance variables
+
 		
 	def initUI(self):
 
@@ -43,18 +59,18 @@ class GUI:
 		#Get the scroll bars
 		xscroll, yscroll = self.scroll_bars(img_frame)
 		
-		canvas = Canvas(img_frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
-		canvas.grid(row=0, column=0, sticky=N+S+E+W)
+		self.canvas = Canvas(img_frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+		self.canvas.grid(row=0, column=0, sticky=N+S+E+W)
 		
 		
-		xscroll.config(command=canvas.xview)
-		yscroll.config(command=canvas.yview)
+		xscroll.config(command=self.canvas.xview)
+		yscroll.config(command=self.canvas.yview)
 		
 		self.load_image(self.root)
 		self.watermark_img = None
 		
-		canvas.create_image(0, 0, image=self.img)
-		canvas.config(scrollregion=canvas.bbox(ALL))
+		self.canvas.create_image(0, 0, image=self.img)
+		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 		
 		img_frame.pack()
 
@@ -107,13 +123,13 @@ class GUI:
 		main_frame.pack(fill=BOTH, expand=1)
 		
 		
-		#mouseclick event
-		canvas.bind("<Button 1>", lambda event: self.getcoords(event, v))
+		# mouseclick event
+		self.canvas.bind("<Button 1>", lambda event: self.getcoords(event, v))
 		
-		#Scroll using Mouse
-		#canvas.bind("<MouseWheel>", self.mouse_wheel) # For Windows. Test!!
-		canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
-		canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
+		# Scroll using Mouse
+		# self.canvas.bind("<MouseWheel>", self.mouse_wheel) # For Windows. Test!!
+		self.canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
+		self.canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
 
 		
 		return img_frame, data_frame
@@ -174,7 +190,7 @@ class GUI:
 		font_type = font_file.split('/')[-1]
 		fl.set(font_type)
 
-		self.textfont = font.select_font(font_file, int(self.img.height()*0.1))
+		self.textfont = font.select_font(font_file, int(self.img.height()/10))
 
 
 
