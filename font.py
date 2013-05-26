@@ -1,9 +1,7 @@
 #!/usr/bin/python
 
-import PIL
-from PIL import Image
-from PIL import ImageFont
-from PIL import ImageDraw
+from PIL import Image, ImageFont, ImageDraw
+
 
 def select_font( font_path, size ):
 	font = ImageFont.truetype( font_path, size )
