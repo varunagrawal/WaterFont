@@ -153,8 +153,8 @@ class GUI:
 		
 		# Scroll using Mouse
 		# self.canvas.bind("<MouseWheel>", self.mouse_wheel) # For Windows. Test!!
-		self.canvas.bind("<Button 4>", lambda event : canvas.yview("scroll", -1, "units"))
-		self.canvas.bind("<Button 5>", lambda event : canvas.yview('scroll', 1, "units"))
+		self.canvas.bind("<Button 4>", lambda event : self.canvas.yview("scroll", -1, "units"))
+		self.canvas.bind("<Button 5>", lambda event : self.canvas.yview('scroll', 1, "units"))
 
 		
 		return img_frame, data_frame
@@ -210,7 +210,7 @@ class GUI:
 				
 		self.count = 0
 		self.img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) )
-		self.pimg = ImageTk.PhotoImage( self.basic_img )
+		self.pimg = ImageTk.PhotoImage( self.img )
 		
 		self.count += 1
 			
