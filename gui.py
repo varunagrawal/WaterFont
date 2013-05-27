@@ -185,7 +185,7 @@ class GUI:
 			
 			try:
 				self.img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) 
-				self.pimg = ImageTk.PhotoImage( self.basic_img )
+				self.pimg = ImageTk.PhotoImage( self.img )
 
 			except IOError:
 				print "Not an image file"
@@ -193,7 +193,7 @@ class GUI:
 			self.count += 1
 			
 			self.canvas.create_image(0, 0, image=self.pimg)
-			self.canvas.config(width=self.canvas.parent.winfo_width)
+			self.canvas.config(width=self.canvas.master.winfo_width)
 
 
 			
