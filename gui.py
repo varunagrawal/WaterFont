@@ -81,7 +81,7 @@ class GUI:
 
 		#pimg = ImageTk.PhotoImage(self.img)
 		self.canvas.create_image(0, 0, image=self.pimg)
-		self.canvas.config(width=self.canvas.master.winfo_width())
+		#self.canvas.config(width=self.canvas.master.winfo_width())
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 		
 		img_frame.pack()
@@ -193,7 +193,7 @@ class GUI:
 			self.count += 1
 			
 			self.canvas.create_image(0, 0, image=self.pimg)
-			self.canvas.config(width=self.canvas.master.winfo_width)
+			#self.canvas.config(width=self.canvas.master.winfo_width)
 
 
 			
