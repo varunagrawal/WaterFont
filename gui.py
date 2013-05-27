@@ -30,7 +30,8 @@ class GUI:
 		
 		self.filedir = None
 		self.Files = None
-				
+
+		self.basic_img = None
 		self.img = None
 		self.watermark_img = None
 		self.text = None
