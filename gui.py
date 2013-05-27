@@ -31,8 +31,8 @@ class GUI:
 		self.filedir = None
 		self.Files = None
 
-		self.basic_img = None
 		self.img = None
+		self.pimg = None
 		self.watermark_img = None
 		self.text = None
 		
@@ -80,7 +80,7 @@ class GUI:
 		self.watermark_img = None
 
 		#pimg = ImageTk.PhotoImage(self.img)
-		self.canvas.create_image(0, 0, image=self.img)
+		self.canvas.create_image(0, 0, image=self.pimg)
 		self.canvas.config(width=self.canvas.master.winfo_width())
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 		
@@ -159,12 +159,14 @@ class GUI:
 		
 		return img_frame, data_frame
 
-
+	
+	
 	def watermark_image(self):
 
 		if self.img == None:
 			tkMessageBox.showerror("No image", "No image selected")
-
+		elif self.text == None:
+			tkMessageBox.showinfo("Text Missing", "Please enter watermark text")
 		else:
 			self.watermark_img = font.watermark(self.img, self.text.get(), self.textfont, (self.x, self.y), self.opacity_scale.get())
 			
@@ -182,16 +184,16 @@ class GUI:
 		else:
 			
 			try:
-				self.basic_img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) 
-				self.img = ImageTk.PhotoImage( self.basic_img )
+				self.img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) 
+				self.pimg = ImageTk.PhotoImage( self.basic_img )
 
 			except IOError:
 				print "Not an image file"
 				
 			self.count += 1
 			
-			self.canvas.create_image(0, 0, image=self.img)
-			self.canvas.config(width=self.canvas.parent.winfo_width, height=self.basic_img.size[1])
+			self.canvas.create_image(0, 0, image=self.pimg)
+			self.canvas.config(width=self.canvas.parent.winfo_width)
 
 
 			
@@ -207,8 +209,8 @@ class GUI:
 		self.Files = os.listdir(self.filedir)
 				
 		self.count = 0
-		self.basic_img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) )
-		self.img = ImageTk.PhotoImage( self.basic_img )
+		self.img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) )
+		self.pimg = ImageTk.PhotoImage( self.basic_img )
 		
 		self.count += 1
 			
