@@ -22,9 +22,8 @@ class GUI:
 
 		self.root = root
 		
-		self.initUI()
-
-
+		
+		
 		# Instance Variables init
 		self.canvas = None
 		self.opacity_scale = None
@@ -32,15 +31,18 @@ class GUI:
 		self.filedir = None
 		self.Files = None
 				
-		self.count = None
 		self.img = None
 		self.watermark_img = None
-
+		self.text = None
+		
 		self.textfont = None
 		self.x, self.y = None, None
 
+		self.count = None
 		# Done initializing instance variables
 
+
+		self.initUI()
 		
 	def initUI(self):
 
@@ -75,6 +77,7 @@ class GUI:
 		self.watermark_img = None
 		
 		self.canvas.create_image(0, 0, image=self.img)
+		self.canvas.config(height=self.img.size)
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 		
 		img_frame.pack()
@@ -83,45 +86,50 @@ class GUI:
 		
 
 		
-		#Data Frame starts here
+		# Data Frame starts here
 		
 		data_frame = Frame(self.root, relief=RAISED)
+
+
+		# Text Input
+		self.text = Entry(data_frame, width=50, borderwidth=5)
+		self.text.grid(row=0, column=0)
 		
-		#Scale Label
+		# Scale Label
 		scale_label = Label(data_frame, text="Opacity:")
-		scale_label.grid(row=0, column=0, sticky=W)
+		scale_label.grid(row=1, column=0, sticky=W)
 
 		
 		#Scale widget to select opacity
 		self.opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=300)
-		self.opacity_scale.grid(row=1, column=0, sticky=W)
+		self.opacity_scale.grid(row=2, column=0, sticky=W)
 
 		
 		#Label for coords
 		v = StringVar()
 		v.set("Coordinates = x : None, y : None")
 		coord_label = Label(data_frame, textvariable=v, borderwidth=20)
-		coord_label.grid(row=2)
+		coord_label.grid(row=3)
 
 
 		# Label for font
 		fl = StringVar()
 		fl.set("No font")
 		font_label = Label(data_frame, textvariable=fl)
-		font_label.grid(row=3, column=0)
+		font_label.grid(row=4, column=0)
 		
 		# Button to select font
 		font_button = Button(data_frame, text="Select Font", command=lambda: self.getfont(fl))
-		font_button.grid(row=3, column=1)
+		font_button.grid(row=4, column=1)
 
 
 		# Watermark buttons
 		watermark_button = Button(data_frame, text="Watermark", command=self.watermark_image)
-		watermark_button.grid(row=4, column=0)
+		watermark_button.grid(row=5, column=0)
 		done_button = Button(data_frame, text="Save", command=self.save_image)
-		done_button.grid(row=4, column=1)
-		next_button = Button(data_frame, text="Next", command=lambda: self.next_image(canvas))
-		next_button.grid(row=4, column=2)
+		done_button.grid(row=5, column=1)
+		next_button = Button(data_frame, text="Next", command=lambda: self.next_image(self.canvas))
+		next_button.grid(row=5, column=2)
 		
 		data_frame.pack()
 
@@ -141,8 +149,13 @@ class GUI:
 
 
 	def watermark_image(self):
-		#stuff
-		abc = 1
+
+		if self.img == None:
+			tkMessageBox.showerror("No image", "No image selected")
+
+		else:
+			self.watermark_img = font.watermark(self.img, self.text.get(), self.textfont, (self.x, self.y), self.opacity_scale.get())
+			
 
 	def save_image(self):
 		#save watermarked image
@@ -163,7 +176,7 @@ class GUI:
 				print "Not an image file"
 				
 			self.count += 1
-			canvas.create_image(0, 0, image=self.img)
+			self.canvas.create_image(0, 0, image=self.img)
 
 
 			
@@ -179,8 +192,8 @@ class GUI:
 		self.Files = os.listdir(self.filedir)
 				
 		self.count = 0
-		self.img = ImageTk.PhotoImage( Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) ) 
-
+		self.img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) )
+		
 		self.count += 1
 			
 		
