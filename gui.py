@@ -31,6 +31,7 @@ class GUI:
 		self.filedir = None
 		self.Files = None
 
+		self.img_file = None
 		self.img = None
 		self.pimg = None
 		self.watermark_img = None
@@ -162,12 +163,12 @@ class GUI:
 	
 	def watermark_image(self):
 
-		if self.img == None:
+		if self.img_file == None:
 			tkMessageBox.showerror("No image", "No image selected")
 		elif self.text == None:
 			tkMessageBox.showinfo("Text Missing", "Please enter watermark text")
 		else:
-			self.watermark_img = font.watermark(self.img, self.text.get(), self.textfont, (self.x, self.y), self.opacity_scale.get())
+			self.watermark_img = font.watermark(self.img_file, self.text.get(), self.textfont, (self.x, self.y), self.opacity_scale.get())
 			
 
 	def save_image(self):
