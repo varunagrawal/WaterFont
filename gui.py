@@ -66,7 +66,7 @@ class GUI:
 		img_frame.grid_rowconfigure(0, weight=1)
 		img_frame.grid_columnconfigure(0, weight=1)
 		
-		#Get the scroll bars
+		# Get the scroll bars
 		xscroll, yscroll = self.scroll_bars(img_frame)
 		
 		self.canvas = Canvas(img_frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
@@ -79,11 +79,10 @@ class GUI:
 		self.load_image(self.root)
 		self.watermark_img = None
 
-		#pimg = ImageTk.PhotoImage(self.img)
+		pimg = ImageTk.PhotoImage(self.img)
 		self.canvas.create_image(0, 0, image=self.pimg)
-		#self.canvas.config(width=self.canvas.master.winfo_width())
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
-		
+
 		img_frame.pack()
 
 		main_frame.pack(fill=BOTH, expand=1)
@@ -120,7 +119,7 @@ class GUI:
 		#Label for coords
 		v = StringVar()
 		v.set("x : None, y : None")
-		coord_label = Label(data_frame, textvariable=v, borderwidth=20)
+		coord_label = Label(data_frame, textvariable=v, borderwidth=5)
 		coord_label.grid(row=2, column=1)
 
 
@@ -179,25 +178,37 @@ class GUI:
 	#Get next image in directory
 	def next_image(self, canvas):
 
+		get_image()
+		
+		self.count += 1
+		
+		self.canvas.create_image(0, 0, image=self.pimg)
+		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
+
+
+			
+	def get_image(self):
+
 		if self.count >= len(self.Files):
 			tkMessageBox.showerror("End of images", "No more images to display")
+			self.img = None
+		 
 		else:
-			
-			try:
-				self.img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) 
-				self.pimg = ImageTk.PhotoImage( self.img )
+			self.img_file = os.path.join(self.filedir, self.Files[self.count] )
 
-			except IOError:
+			
+		try:
+			
+			self.img = Image.open( self.img_file )
+			self.pimg = ImageTk.PhotoImage( self.img )
+
+		except IOError:
 				print "Not an image file"
-				
-			self.count += 1
+
+		self.count += 1
+
+		
 			
-			self.canvas.create_image(0, 0, image=self.pimg)
-			#self.canvas.config(width=self.canvas.master.winfo_width)
-
-
-			
-
 	def load_image(self, root):
 		#adding the image
 
@@ -207,12 +218,10 @@ class GUI:
 		# This function selects a directory
 		self.filedir = tkFileDialog.askdirectory(parent=root, initialdir="/home/varun/Pictures", title='Choose a directory', mustexist=True)
 		self.Files = os.listdir(self.filedir)
-				
-		self.count = 0
-		self.img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) )
-		self.pimg = ImageTk.PhotoImage( self.img )
 		
-		self.count += 1
+		self.count = 0
+
+		get_image()
 			
 		
 		
