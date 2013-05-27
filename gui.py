@@ -140,7 +140,7 @@ class GUI:
 		watermark_button.grid(row=5, column=0)
 		done_button = Button(data_frame, text="Save", command=self.save_image)
 		done_button.grid(row=5, column=1)
-		next_button = Button(data_frame, text="Next", command=lambda: self.next_image(self.canvas))
+		next_button = Button(data_frame, text="Next", command=lambda: self.next_image())
 		next_button.grid(row=5, column=2)
 		
 		data_frame.pack()
@@ -163,12 +163,27 @@ class GUI:
 	
 	def watermark_image(self):
 
+		text_pos = (self.x, self.y)
+		
 		if self.img_file == None:
 			tkMessageBox.showerror("No image", "No image selected")
-		elif self.text == None:
-			tkMessageBox.showinfo("Text Missing", "Please enter watermark text")
+			
+		elif self.text.get() == "" or self.text.get() == None:
+			tkMessageBox.showerror("Text Missing", "Please enter watermark text")
+
+		elif self.textfont == None:
+			tkMessageBox.showerror("No Font", "Please click on the image to select co-ordinates!")
+			
+		elif self.x == None or self.y == None:
+			tkMessageBox.showerror("No Co-ords", "Please click on the image to select co-ordinates!")
+			
 		else:
-			self.watermark_img = font.watermark(self.img_file, self.text.get(), self.textfont, (self.x, self.y), self.opacity_scale.get())
+			self.watermark_img = font.watermark(self.img_file, self.text.get(), self.textfont, text_pos, self.opacity_scale.get())
+
+			self.pimg = ImageTk.PhotoImage( self.watermark_img )
+			self.canvas.create_image(0, 0, image=self.pimg)
+			self.canvas.config(scrollregion=self.canvas.bbox(ALL))
+
 			
 
 	def save_image(self):
@@ -177,11 +192,9 @@ class GUI:
 
 
 	#Get next image in directory
-	def next_image(self, canvas):
+	def next_image(self):
 
-		get_image()
-		
-		self.count += 1
+		self.get_image()
 		
 		self.canvas.create_image(0, 0, image=self.pimg)
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
@@ -222,7 +235,7 @@ class GUI:
 		
 		self.count = 0
 
-		get_image()
+		self.get_image()
 			
 		
 		
@@ -236,7 +249,7 @@ class GUI:
 		font_type = font_file.split('/')[-1]
 		fl.set(font_type)
 
-		self.textfont = font.select_font(font_file, int(self.img.height()/10))
+		self.textfont = font.select_font(font_file, int(self.pimg.height()/10))
 
 
 
