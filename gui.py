@@ -81,7 +81,7 @@ class GUI:
 
 		#pimg = ImageTk.PhotoImage(self.img)
 		self.canvas.create_image(0, 0, image=self.img)
-		#self.canvas.config(height=self.img.size)
+		self.canvas.config(width=self.canvas.master.winfo_width())
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 		
 		img_frame.pack()
@@ -95,9 +95,14 @@ class GUI:
 		data_frame = Frame(self.root, relief=RAISED)
 
 
+		# Text Label
+		text_label = Label(data_frame, text="Watermark Text:")
+		text_label.grid(row=0, column=0, sticky=W)
+
+
 		# Text Input
-		self.text = Entry(data_frame, width=50, borderwidth=5)
-		self.text.grid(row=0, column=0)
+		self.text = Entry(data_frame, width=30)
+		self.text.grid(row=0, column=1)
 		
 		# Scale Label
 		scale_label = Label(data_frame, text="Opacity:")
@@ -106,14 +111,18 @@ class GUI:
 		
 		#Scale widget to select opacity
 		self.opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=300)
-		self.opacity_scale.grid(row=2, column=0, sticky=W)
+		self.opacity_scale.grid(row=1, column=1, sticky=W)
 
 		
+		# Text Input
+		self.text = Label(data_frame, text="Co-ordinates:")
+		self.text.grid(row=2, column=0)
+
 		#Label for coords
 		v = StringVar()
-		v.set("Coordinates = x : None, y : None")
+		v.set("x : None, y : None")
 		coord_label = Label(data_frame, textvariable=v, borderwidth=20)
-		coord_label.grid(row=3)
+		coord_label.grid(row=2, column=1)
 
 
 		# Label for font
@@ -181,7 +190,9 @@ class GUI:
 				print "Not an image file"
 				
 			self.count += 1
+			
 			self.canvas.create_image(0, 0, image=self.img)
+			self.canvas.config(width=self.canvas.parent.winfo_width, height=self.basic_img.size[1])
 
 
 			
@@ -223,7 +234,7 @@ class GUI:
 		
 		self.x, self.y = event.x, event.y
 
-		v.set("Coordinates = x : " + str(self.x) + ", y : " + str(self.y))
+		v.set("x : " + str(self.x) + ", y : " + str(self.y))
 	
 		
 		
