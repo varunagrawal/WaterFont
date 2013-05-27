@@ -43,6 +43,8 @@ class GUI:
 
 
 		self.initUI()
+
+
 		
 	def initUI(self):
 
@@ -75,9 +77,10 @@ class GUI:
 		
 		self.load_image(self.root)
 		self.watermark_img = None
-		
+
+		#pimg = ImageTk.PhotoImage(self.img)
 		self.canvas.create_image(0, 0, image=self.img)
-		self.canvas.config(height=self.img.size)
+		#self.canvas.config(height=self.img.size)
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 		
 		img_frame.pack()
@@ -170,7 +173,8 @@ class GUI:
 		else:
 			
 			try:
-				self.img = ImageTk.PhotoImage( Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) )
+				self.basic_img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) ) 
+				self.img = ImageTk.PhotoImage( self.basic_img )
 
 			except IOError:
 				print "Not an image file"
@@ -192,7 +196,8 @@ class GUI:
 		self.Files = os.listdir(self.filedir)
 				
 		self.count = 0
-		self.img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) )
+		self.basic_img = Image.open( os.path.join(self.filedir, self.Files[self.count] ) )
+		self.img = ImageTk.PhotoImage( self.basic_img )
 		
 		self.count += 1
 			
