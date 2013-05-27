@@ -99,24 +99,23 @@ class GUI:
 		text_label = Label(data_frame, text="Watermark Text:")
 		text_label.grid(row=0, column=0, sticky=W)
 
-
 		# Text Input
 		self.text = Entry(data_frame, width=30)
 		self.text.grid(row=0, column=1)
+
 		
 		# Scale Label
 		scale_label = Label(data_frame, text="Opacity:")
 		scale_label.grid(row=1, column=0, sticky=W)
 
-		
 		#Scale widget to select opacity
 		self.opacity_scale = Scale(data_frame, from_=0, to=100, orient=HORIZONTAL, length=300)
 		self.opacity_scale.grid(row=1, column=1, sticky=W)
 
 		
-		# Text Input
-		self.text = Label(data_frame, text="Co-ordinates:")
-		self.text.grid(row=2, column=0)
+		# Coordinate Label
+		self.coord_label = Label(data_frame, text="Co-ordinates:")
+		self.coord_label.grid(row=2, column=0)
 
 		#Label for coords
 		v = StringVar()
