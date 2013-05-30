@@ -1,8 +1,12 @@
 #!/usr/bin/python
 
-# Create GUI. Use TKinter for cross-platform support
+"""
+ Author: Varun Agrawal (Eulerion)
 
-# Should show the watermark
+ File: Main program file. Defines the starting point
+"""
+
+
 # Add doc strings to all functions
 
 
@@ -16,26 +20,24 @@ import gui
 
 def main():
 
-	root = Tk()
+	root = Tkinter.Tk()
 	app = gui.GUI(root)
 
 	
 	#Test suite
-	
-	opacity = opacity_scale.get()
-	print opacity
-	
-	text_pos = (x, y)
-
-	if x and y:
-		test(canvas, File, opacity, text_pos)
-
+	#test(app)
 
 	root.mainloop()
 
 
-def test(File, trans, text_pos):
+def test(app):
+
+	opacity = app.opacity_scale.get()
+	print opacity
 	
+	text_pos = (app.x, app.y)
+
+
 	font_file = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf"
 	Font = font.select_font(font_file)
 	text = "Varun Agrawal"
