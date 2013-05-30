@@ -144,6 +144,8 @@ class GUI:
 
 		# Button to set font size
 		font_size_btn = Button(data_frame, text="Set Size", command=self.set_font_size)
+		font_size_btn.grid(row=5, column=2)
+		
 		
 		# Watermark buttons
 		watermark_button = Button(data_frame, text="Watermark", command=self.watermark_image)
