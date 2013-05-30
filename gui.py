@@ -80,9 +80,7 @@ class GUI:
 		self.load_image(self.root)
 		self.watermark_img = None
 
-		self.canvas.create_image(0, 0, image=self.pimg)
-		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
-		
+				
 		img_frame.pack()
 
 		main_frame.pack(fill=BOTH, expand=1)
@@ -183,6 +181,7 @@ class GUI:
 			self.watermark_img = font.watermark(self.img_file, self.text.get(), self.textfont, text_pos, self.opacity_scale.get())
 
 			self.pimg = ImageTk.PhotoImage( self.watermark_img )
+
 			self.canvas.create_image(0, 0, image=self.pimg)
 			self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 
@@ -206,10 +205,6 @@ class GUI:
 
 		self.get_image()
 		
-		
-		self.canvas.create_image(0, 0, image=self.pimg)
-		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
-
 
 
 
@@ -237,6 +232,9 @@ class GUI:
 				print "Not an image file"
 
 		self.count += 1
+
+		self.canvas.create_image(0, 0, image=self.pimg)
+		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 
 		
 			
@@ -273,9 +271,16 @@ class GUI:
 	#function to be called when mouse is clicked
 	def getcoords(self, event, v):
 		
-		self.x, self.y = event.x, event.y
+		self.x, self.y = self.canvas.canvasx(event.x), self.canvas.canvasy(event.y)
 
-		#bounds = self.canvas.bbox(None)
+		bounds = self.canvas.bbox(ALL)
+		
+		self.x, self.y = self.x + bounds[2], self.y + bounds[3]
+		#print self.xscroll.get()
+		#print self.yscroll.get()
+		
+		
+		#print self.x, self.y
 		#width = bounds[2] - bounds[0]
 		#height = bounds[3] - bounds[1]
 
