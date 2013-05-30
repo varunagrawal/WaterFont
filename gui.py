@@ -191,7 +191,12 @@ class GUI:
 
 			
 	def save_image(self):
-		self.watermark_img.save("wm-" + self.img_file)
+
+		# Split file path. Check in windows
+		file_name = os.path.split(self.img_file)
+		wm_file = os.path.join(file_name[0], "wm-"+file_name[1])
+		
+		self.watermark_img.save(wm_file)
 
 		tkMessageBox.showinfo("Image Saved", "Image successfully saved!")
 
