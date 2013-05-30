@@ -210,8 +210,8 @@ class GUI:
 
 	# Set the image in the canvas
 	def set_image(self):
-		
-		self.canvas.create_image(0, 0, image=self.pimg)
+
+		self.canvas.create_image(0, 0, image=self.pimg, anchor="nw")
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 
 		
@@ -283,7 +283,7 @@ class GUI:
 
 		bounds = self.canvas.bbox(ALL)
 		
-		self.x, self.y = self.x + bounds[2], self.y + bounds[3]
+		#self.x, self.y = self.x + bounds[2], self.y + bounds[3]
 		#print self.xscroll.get()
 		#print self.yscroll.get()
 		
