@@ -182,9 +182,8 @@ class GUI:
 
 			self.pimg = ImageTk.PhotoImage( self.watermark_img )
 
-			self.canvas.create_image(0, 0, image=self.pimg)
-			self.canvas.config(scrollregion=self.canvas.bbox(ALL))
-
+			self.set_image()
+			
 			
 
 			
@@ -200,13 +199,22 @@ class GUI:
 
 
 		
+		
 	#Get next image in directory
 	def next_image(self):
 
 		self.get_image()
+		self.set_image()
+
+
+
+	# Set the image in the canvas
+	def set_image(self):
 		
+		self.canvas.create_image(0, 0, image=self.pimg)
+		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 
-
+		
 
 		
 	def get_image(self):
@@ -233,8 +241,8 @@ class GUI:
 
 		self.count += 1
 
-		self.canvas.create_image(0, 0, image=self.pimg)
-		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
+		self.set_image()
+
 
 		
 			
