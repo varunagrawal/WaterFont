@@ -189,16 +189,17 @@ class GUI:
 
 			
 
+			
 	def save_image(self):
 		#save watermarked image
 		abc = 2
 
 
+
+		
 	#Get next image in directory
 	def next_image(self):
 
-		#print "Count: " + str(self.count)
-		
 		self.get_image()
 
 		print "Count: " + str(self.count)
@@ -207,11 +208,14 @@ class GUI:
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 
 
-			
+
+
+		
 	def get_image(self):
 
-		print "get image " + str(self.count)
-		print self.Files
+		"""
+		Obtains the next image in the specified directory.
+		"""
 		
 		if self.count >= len(self.Files):
 			tkMessageBox.showerror("End of images", "No more images to display")
