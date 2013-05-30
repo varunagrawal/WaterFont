@@ -191,9 +191,9 @@ class GUI:
 
 			
 	def save_image(self):
-		#save watermarked image
-		abc = 2
+		self.watermark_image.save(self.img_file + "-wm")
 
+		tkMessageBox.showinfo("Image Saved", "Image successfully saved!")
 
 
 		
@@ -201,8 +201,7 @@ class GUI:
 	def next_image(self):
 
 		self.get_image()
-
-		print "Count: " + str(self.count)
+		
 		
 		self.canvas.create_image(0, 0, image=self.pimg)
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
