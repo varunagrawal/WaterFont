@@ -132,14 +132,23 @@ class GUI:
 		font_button.grid(row=4, column=1)
 
 
+		# Label for font size
+		font_size_label = Label(data_frame, text="Font size:")
+		font_size_label.grid(row=5, column=0)
+		
+		# Entry for font
+		self.font_size_input = Entry(data_frame, width=10)
+		self.font_size_input.grid(row=5, column=1)
+
+		
 		# Watermark buttons
 		watermark_button = Button(data_frame, text="Watermark", command=self.watermark_image)
-		watermark_button.grid(row=5, column=0)
+		watermark_button.grid(row=6, column=0)
 		done_button = Button(data_frame, text="Save", command=self.save_image)
-		done_button.grid(row=5, column=1)
+		done_button.grid(row=6, column=1)
 
 		next_button = Button(data_frame, text="Next", command=self.next_image)
-		next_button.grid(row=5, column=2)
+		next_button.grid(row=6, column=2)
 
 		
 		data_frame.pack()
@@ -272,27 +281,18 @@ class GUI:
 		font_type = os.path.split(font_file)[-1]
 		fl.set(font_type)
 
-		self.textfont = font.select_font(font_file, 20)
+		if self.font_size == None:
+			self.font_size = 20
+			
+		self.textfont = font.select_font(font_file, self.font_size)
 
 
 
 	#function to be called when mouse is clicked
 	def getcoords(self, event, v):
 		
-		self.x, self.y = self.canvas.canvasx(event.x), self.canvas.canvasy(event.y)
-
-		bounds = self.canvas.bbox(ALL)
+		self.x, self.y = self.canvas.canvasx(event.x), self.canvas.canvasy(event.y)		
 		
-		#self.x, self.y = self.x + bounds[2], self.y + bounds[3]
-		#print self.xscroll.get()
-		#print self.yscroll.get()
-		
-		
-		#print self.x, self.y
-		#width = bounds[2] - bounds[0]
-		#height = bounds[3] - bounds[1]
-
-		#print 
 		v.set("x : " + str(self.x) + ", y : " + str(self.y))
 	
 		
