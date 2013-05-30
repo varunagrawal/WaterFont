@@ -68,22 +68,21 @@ class GUI:
 		img_frame.grid_columnconfigure(0, weight=1)
 		
 		# Get the scroll bars
-		xscroll, yscroll = self.scroll_bars(img_frame)
+		self.xscroll, self.yscroll = self.scroll_bars(img_frame)
 		
-		self.canvas = Canvas(img_frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+		self.canvas = Canvas(img_frame, bd=0, xscrollcommand=self.xscroll.set, yscrollcommand=self.yscroll.set)
 		self.canvas.grid(row=0, column=0, sticky=N+S+E+W)
 		
 		
-		xscroll.config(command=self.canvas.xview)
-		yscroll.config(command=self.canvas.yview)
+		self.xscroll.config(command=self.canvas.xview)
+		self.yscroll.config(command=self.canvas.yview)
 		
 		self.load_image(self.root)
 		self.watermark_img = None
 
-		pimg = ImageTk.PhotoImage(self.img)
 		self.canvas.create_image(0, 0, image=self.pimg)
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
-
+		
 		img_frame.pack()
 
 		main_frame.pack(fill=BOTH, expand=1)
@@ -140,11 +139,13 @@ class GUI:
 		watermark_button.grid(row=5, column=0)
 		done_button = Button(data_frame, text="Save", command=self.save_image)
 		done_button.grid(row=5, column=1)
-		next_button = Button(data_frame, text="Next", command=lambda: self.next_image())
+
+		next_button = Button(data_frame, text="Next", command=self.next_image)
 		next_button.grid(row=5, column=2)
+
 		
 		data_frame.pack()
-
+		
 		main_frame.pack(fill=BOTH, expand=1)
 		
 		
@@ -156,6 +157,8 @@ class GUI:
 		self.canvas.bind("<Button 4>", lambda event : self.canvas.yview("scroll", -1, "units"))
 		self.canvas.bind("<Button 5>", lambda event : self.canvas.yview('scroll', 1, "units"))
 
+
+		print self.count
 		
 		return img_frame, data_frame
 
@@ -194,7 +197,11 @@ class GUI:
 	#Get next image in directory
 	def next_image(self):
 
+		#print "Count: " + str(self.count)
+		
 		self.get_image()
+
+		print "Count: " + str(self.count)
 		
 		self.canvas.create_image(0, 0, image=self.pimg)
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
@@ -203,6 +210,9 @@ class GUI:
 			
 	def get_image(self):
 
+		print "get image " + str(self.count)
+		print self.Files
+		
 		if self.count >= len(self.Files):
 			tkMessageBox.showerror("End of images", "No more images to display")
 			self.img = None
@@ -249,7 +259,7 @@ class GUI:
 		font_type = font_file.split('/')[-1]
 		fl.set(font_type)
 
-		self.textfont = font.select_font(font_file, int(self.pimg.height()/10))
+		self.textfont = font.select_font(font_file, 20)
 
 
 
@@ -267,9 +277,9 @@ class GUI:
 	def mouse_wheel(self, event):
 		global count
 		if event.num == 4:
-			canvas.xview('scroll', -1, 'units')
+			self.canvas.xview('scroll', -1, 'units')
 		elif event.num == 5:
-			canvas.xview('scroll', 1, 'units')
+			self.canvas.xview('scroll', 1, 'units')
 			
 		
 	def scroll_bars(self, frame):
