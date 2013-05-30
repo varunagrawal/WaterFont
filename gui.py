@@ -191,7 +191,7 @@ class GUI:
 
 			
 	def save_image(self):
-		self.watermark_image.save(self.img_file + "-wm")
+		self.watermark_img.save(self.img_file + "-wm")
 
 		tkMessageBox.showinfo("Image Saved", "Image successfully saved!")
 
