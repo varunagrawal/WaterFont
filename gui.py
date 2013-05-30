@@ -281,8 +281,20 @@ class GUI:
 		font_type = os.path.split(font_file)[-1]
 		fl.set(font_type)
 
-		if self.font_size == None:
+		
+		try:
+			self.font_size = int(self.font_size_input.get())
+			
+		except ValueError:
+			tkMessageBox.showerror("Input Error", "Abnormal font size. Setting default")
 			self.font_size = 20
+
+			self.font_size_input.delete(0, END)
+			self.font_size_input.insert(0, 20)
+			
+			
+		if self.font_size == None:
+			tkMessageBox.showerror("Font Size", "Please enter a font size!")
 			
 		self.textfont = font.select_font(font_file, self.font_size)
 
