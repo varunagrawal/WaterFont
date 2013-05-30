@@ -263,7 +263,7 @@ class GUI:
 		# Change the initial dir for Windows
 		font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
 		
-		font_type = os.path.split(font_file.split)[-1]
+		font_type = os.path.split(font_file)[-1]
 		fl.set(font_type)
 
 		self.textfont = font.select_font(font_file, 20)
