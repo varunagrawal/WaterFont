@@ -38,6 +38,8 @@ class GUI:
 
 		self.text = None
 		self.textfont = None
+		self.font_file = None
+		self.font_size = None
 		self.x, self.y = None, None
 
 		self.count = None
@@ -140,6 +142,8 @@ class GUI:
 		self.font_size_input = Entry(data_frame, width=10)
 		self.font_size_input.grid(row=5, column=1)
 
+		# Button to set font size
+		font_size_btn = Button(data_frame, text="Set Size", command=self.set_font_size)
 		
 		# Watermark buttons
 		watermark_button = Button(data_frame, text="Watermark", command=self.watermark_image)
@@ -276,9 +280,9 @@ class GUI:
 	def getfont(self, fl):
 
 		# Change the initial dir for Windows
-		font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
+		self.font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
 		
-		font_type = os.path.split(font_file)[-1]
+		font_type = os.path.split(self.font_file)[-1]
 		fl.set(font_type)
 
 		
@@ -286,19 +290,35 @@ class GUI:
 			self.font_size = int(self.font_size_input.get())
 			
 		except ValueError:
-			tkMessageBox.showerror("Input Error", "Abnormal font size. Setting default")
+			tkMessageBox.showerror("Input Error", "Invalid font size. Setting default")
 			self.font_size = 20
 
 			self.font_size_input.delete(0, END)
 			self.font_size_input.insert(0, 20)
 			
 			
-		if self.font_size == None:
-			tkMessageBox.showerror("Font Size", "Please enter a font size!")
 			
-		self.textfont = font.select_font(font_file, self.font_size)
+		self.textfont = font.select_font(self.font_file, self.font_size)
 
 
+		
+	def set_font_size(self):
+		try:
+			self.font_size = int(self.font_size_input.get())
+			
+		except ValueError:
+			tkMessageBox.showerror("Input Error", "Invalid font size. Setting default")
+			self.font_size = 20
+
+			self.font_size_input.delete(0, END)
+			self.font_size_input.insert(0, 20)
+
+		if self.font_file == None:
+			tkMessageBox.showerror("Invalid Font", "Please select a font file.")
+			return
+		
+		self.textfont = font.select_font(self.font_file, self.font_size)
+		
 
 	#function to be called when mouse is clicked
 	def getcoords(self, event, v):
