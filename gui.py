@@ -35,8 +35,8 @@ class GUI:
 		self.img = None
 		self.pimg = None
 		self.watermark_img = None
+
 		self.text = None
-		
 		self.textfont = None
 		self.x, self.y = None, None
 
@@ -113,14 +113,14 @@ class GUI:
 
 		
 		# Coordinate Label
-		self.coord_label = Label(data_frame, text="Co-ordinates:")
-		self.coord_label.grid(row=2, column=0)
+		coord_label = Label(data_frame, text="Co-ordinates:")
+		coord_label.grid(row=2, column=0)
 
 		#Label for coords
 		v = StringVar()
 		v.set("x : None, y : None")
-		coord_label = Label(data_frame, textvariable=v, borderwidth=5)
-		coord_label.grid(row=2, column=1)
+		coordxy_label = Label(data_frame, textvariable=v, borderwidth=5)
+		coordxy_label.grid(row=2, column=1)
 
 
 		# Label for font
@@ -275,6 +275,11 @@ class GUI:
 		
 		self.x, self.y = event.x, event.y
 
+		#bounds = self.canvas.bbox(None)
+		#width = bounds[2] - bounds[0]
+		#height = bounds[3] - bounds[1]
+
+		#print 
 		v.set("x : " + str(self.x) + ", y : " + str(self.y))
 	
 		
