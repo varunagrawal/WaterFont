@@ -1,9 +1,12 @@
-#
-#    GUI Module
-#
-#    Author:    Varun Agrawal
-#
-#
+"""
+    GUI Module
+
+    Author:    Varun Agrawal (Eulerion)
+
+    About:     Creates the GUI and functions that take user input and get the work done
+
+"""
+
 
 from Tkinter import *
 

@@ -1,4 +1,9 @@
-#!/usr/bin/python
+"""
+    Author:    Varun Agrawal (Eulerion)
+
+    About:     Module which does all the image processing
+
+"""
 
 from PIL import Image, ImageFont, ImageDraw
 
