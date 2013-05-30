@@ -71,14 +71,17 @@ class GUI:
 		
 		# Get the scroll bars
 		self.xscroll, self.yscroll = self.scroll_bars(img_frame)
-		
+
+		# Init the Image Canvas
 		self.canvas = Canvas(img_frame, bd=0, xscrollcommand=self.xscroll.set, yscrollcommand=self.yscroll.set)
 		self.canvas.grid(row=0, column=0, sticky=N+S+E+W)
 		
 		
 		self.xscroll.config(command=self.canvas.xview)
 		self.yscroll.config(command=self.canvas.yview)
-		
+
+
+		# Load the image on startup
 		self.load_image(self.root)
 		self.watermark_img = None
 
@@ -322,7 +325,7 @@ class GUI:
 		self.textfont = font.select_font(self.font_file, self.font_size)
 		
 
-	#function to be called when mouse is clicked
+	# function to be called when mouse is clicked
 	def getcoords(self, event, v):
 		
 		self.x, self.y = self.canvas.canvasx(event.x), self.canvas.canvasy(event.y)		
@@ -332,7 +335,7 @@ class GUI:
 		
 		
 		
-	#function to be called when mouse is used to scroll
+	# function to be called when mouse is used to scroll
 	def mouse_wheel(self, event):
 		global count
 		if event.num == 4:
