@@ -251,17 +251,18 @@ class GUI:
 			self.img_file = os.path.join(self.filedir, self.Files[self.count] )
 
 			
-		try:
+			try:
 			
-			self.img = Image.open( self.img_file )
-			self.pimg = ImageTk.PhotoImage( self.img )
+				self.img = Image.open( self.img_file )
+				self.pimg = ImageTk.PhotoImage( self.img )
 
-		except IOError:
+			except IOError:
 				print "Not an image file"
+				tkMessageBox.showerror("Invalid Image", "Invalid Image. Please click Next")
 
-		self.count += 1
-
-		self.set_image()
+			self.count += 1
+				
+			self.set_image()
 
 
 		
@@ -339,11 +340,13 @@ class GUI:
 		
 	# function to be called when mouse is used to scroll
 	def mouse_wheel(self, event):
-		global count
+
 		if event.num == 4:
 			self.canvas.xview('scroll', -1, 'units')
 		elif event.num == 5:
 			self.canvas.xview('scroll', 1, 'units')
+
+
 			
 		
 	def scroll_bars(self, frame):
