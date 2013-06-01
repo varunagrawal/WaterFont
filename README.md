@@ -16,7 +16,7 @@ Prerequisites:
 
 For Windows users:
 
-    1. The native PIL library installation has some compilation problems, hence it is recommended you install the Pillow library from http://www.lfd.uci.edu/~gohlke/pythonlibs/
+    1. The native PIL library installation has some compilation problems, hence it is recommended you install the Pillow library from www.lfd.uci.edu/~gohlke/pythonlibs/
     2. Security: The Fonts folder (C:\Windows\Fonts) is access protected. This may cause the program to be unable to display the fonts when the font selection window opens. To correct this, do the following:
         
         * Open a Command Prompt as Administrator (right click cmd, “run as administrator”).
