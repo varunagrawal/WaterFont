@@ -89,7 +89,15 @@ class GUI:
 		self.load_image(self.root)
 		self.watermark_img = None
 
-				
+
+		# Image Label
+		i = StringVar()
+		i.set(self.Files[self.count-1])
+		img_label = Label(img_frame, textvariable=i)
+		img_label.grid(row=0, column=0, sticky=W)
+
+		
+		
 		img_frame.pack()
 
 		main_frame.pack(fill=BOTH, expand=1)
@@ -161,7 +169,7 @@ class GUI:
 		done_button = Button(data_frame, text="Save", command=self.save_image)
 		done_button.grid(row=6, column=1)
 
-		next_button = Button(data_frame, text="Next", command=self.next_image)
+		next_button = Button(data_frame, text="Next", command=lambda: self.next_image(i))
 		next_button.grid(row=6, column=2)
 
 		
@@ -213,7 +221,7 @@ class GUI:
 			
 	def save_image(self):
 
-		# Split file path. Check in windows
+		# Split file path.
 		file_name = os.path.split(self.img_file)
 		wm_file = os.path.join(file_name[0], "wm-"+file_name[1])
 		
@@ -225,11 +233,12 @@ class GUI:
 		
 		
 	#Get next image in directory
-	def next_image(self):
+	def next_image(self, i):
 
 		self.get_image()
 		self.set_image()
 
+		i.set(self.Files[self.count-1])
 
 
 	# Set the image in the canvas
@@ -354,9 +363,10 @@ class GUI:
 		elif event.num == 5 or event.delta == -120:
 			direction = 1
 			#self.canvas.xview('scroll', 1, 'units')
-		event.widget.yview_scroll(direction, UNITS)	
+		event.widget.yview_scroll(direction, UNITS)
 		
-		
+
+	
 	def scroll_bars(self, frame):
 		xscroll = Scrollbar(frame, orient=HORIZONTAL)
 		xscroll.grid(row=1, column=0, sticky=E+W)
@@ -366,6 +376,7 @@ class GUI:
 		return xscroll, yscroll
 
 
+	
 
 def run():
 	root = Tk()

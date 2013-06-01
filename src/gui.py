@@ -17,8 +17,11 @@ import Image, ImageTk
 import font
 
 
-# wrapper class for GUI
 class GUI:
+
+	"""
+	Wrapper class for the GUI
+	"""
 
 	
 	def __init__(self, root):
@@ -55,6 +58,10 @@ class GUI:
 		
 	def initUI(self):
 
+		"""
+		Initialize the UI
+		"""
+		
 		self.root.title("WaterFont")
 		main_frame = Frame(self.root)
 		
@@ -65,7 +72,13 @@ class GUI:
 	
 		
 	def create_frames(self, main_frame):
-			
+
+		"""
+		Create 2 frames. First to store the image and the second to store the controls for watermarking.
+		Create and add all the widgets.
+		"""
+
+		
 		#Set up Tkinter Canvas with scrollbars
 		img_frame = Frame(main_frame, bd=2, relief=SUNKEN)
 		img_frame.grid(row=0, column=0)
@@ -88,7 +101,14 @@ class GUI:
 		self.load_image(self.root)
 		self.watermark_img = None
 
-				
+
+		# Image Label
+		i = StringVar()
+		i.set(self.Files[self.count-1])
+		img_label = Label(img_frame, textvariable=i)
+		img_label.grid(row=2, column=0)
+
+		
 		img_frame.pack()
 
 		main_frame.pack(fill=BOTH, expand=1)
@@ -159,7 +179,7 @@ class GUI:
 		done_button = Button(data_frame, text="Save", command=self.save_image)
 		done_button.grid(row=6, column=1)
 
-		next_button = Button(data_frame, text="Next", command=self.next_image)
+		next_button = Button(data_frame, text="Next", command=lambda: self.next_image(i))
 		next_button.grid(row=6, column=2)
 
 		
@@ -169,7 +189,7 @@ class GUI:
 		
 		
 		# mouseclick event
-		self.canvas.bind("<Button 1>", lambda event: self.getcoords(event, v))
+		self.canvas.bind("<Button 1>", lambda event: self.get_coords(event, v))
 		
 		# Scroll using Mouse
 		self.canvas.bind("<Button 4>", lambda event : self.canvas.yview("scroll", -1, "units"))
@@ -183,6 +203,10 @@ class GUI:
 	
 	def watermark_image(self):
 
+		"""
+		Method to run when user clicks the Watermark button
+		"""
+		
 		text_pos = (self.x, self.y)
 		
 		if self.img_file == None:
@@ -209,6 +233,10 @@ class GUI:
 			
 	def save_image(self):
 
+		"""
+		Method to save the image with 'wm' prepended to the image name
+		"""
+		
 		# Split file path. Check in windows
 		file_name = os.path.split(self.img_file)
 		wm_file = os.path.join(file_name[0], "wm-"+file_name[1])
@@ -220,17 +248,24 @@ class GUI:
 
 		
 		
-	#Get next image in directory
-	def next_image(self):
+	def next_image(self, i):
+
+		"""
+		Get next image in directory
+		"""
 
 		self.get_image()
 		self.set_image()
 
+		i.set(self.Files[self.count-1])
 
 
-	# Set the image in the canvas
 	def set_image(self):
 
+		"""
+		Set the image in the canvas
+		"""
+		
 		self.canvas.create_image(0, 0, image=self.pimg, anchor="nw")
 		self.canvas.config(scrollregion=self.canvas.bbox(ALL))
 
@@ -268,7 +303,10 @@ class GUI:
 		
 			
 	def load_image(self, root):
-		#adding the image
+
+		"""
+		Load the image directory on startup and set the 1st image in the dir to the canvas.
+		"""
 
 		# This function selects muliple files
 		#Files = tkFileDialog.askopenfilenames(parent=root, initialdir="/home/varun/Pictures", title='Choose an image')
@@ -284,10 +322,13 @@ class GUI:
 		
 		
 		
-	# Get the font from the user
 	def get_font(self, fl):
 
-		# Change the initial dir for Windows
+		"""
+		Get the font from the user.
+		"""
+		
+		
 		self.font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
 		
 		font_type = os.path.split(self.font_file)[-1]
@@ -311,6 +352,11 @@ class GUI:
 
 		
 	def set_font_size(self):
+
+		"""
+		Set the font size when getting the font instance.
+		"""
+		
 		try:
 			self.font_size = int(self.font_size_input.get())
 			
@@ -328,8 +374,13 @@ class GUI:
 		self.textfont = font.select_font(self.font_file, self.font_size)
 		
 
-	# function to be called when mouse is clicked
+
+		
 	def get_coords(self, event, v):
+
+		"""
+		Method to be called when mouse is clicked. Stores the click co-ords in x, y
+		"""
 		
 		self.x, self.y = self.canvas.canvasx(event.x), self.canvas.canvasy(event.y)		
 		
@@ -337,9 +388,13 @@ class GUI:
 	
 		
 		
+
 		
-	# function to be called when mouse is used to scroll
 	def mouse_wheel(self, event):
+
+		"""
+		Method to be called when mouse is used to scroll.
+		"""
 
 		if event.num == 4:
 			self.canvas.xview('scroll', -1, 'units')
@@ -350,6 +405,11 @@ class GUI:
 			
 		
 	def scroll_bars(self, frame):
+
+		"""
+		Defines the scrollbar objects for the canvas.
+		"""
+		
 		xscroll = Scrollbar(frame, orient=HORIZONTAL)
 		xscroll.grid(row=1, column=0, sticky=E+W)
 		yscroll = Scrollbar(frame)

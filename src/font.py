@@ -9,6 +9,11 @@ from PIL import Image, ImageFont, ImageDraw
 
 
 def select_font( font_path, size ):
+
+	"""
+	Returns an instance of the ImageFont with the specified font and font size.
+	"""
+	
 	wfont = ImageFont.truetype( font_path, size )
 
 	return wfont
@@ -17,6 +22,11 @@ def select_font( font_path, size ):
 
 def watermark(img_file, text, wfont, text_pos, trans):
 
+	"""
+	Watermarks the specified image with the text in the specified font and on the specified point.
+	"""
+
+	
 	#Open the image file
 	img = Image.open(img_file)
 	
@@ -38,10 +48,14 @@ def watermark(img_file, text, wfont, text_pos, trans):
 
 	return img
 
+
+
 	
 def main():
 
-	#Test suite
+	"""
+	Test suite for this module
+	"""
 	
 	font_file = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf"
 	wfont = select_font(font_file, 20)
@@ -59,5 +73,7 @@ def main():
 
 	img.save("temp-wm.jpg")
 
+
+	
 if __name__ == "__main__":
 	main()

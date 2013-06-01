@@ -7,9 +7,6 @@
 """
 
 
-# Add doc strings to all functions
-
-
 import font
 import Tkinter
 import tkFileDialog
@@ -20,18 +17,24 @@ import gui
 
 def main():
 
+	"""
+	Starting point for the application. Initializes the GUI
+	"""
+	
 	root = Tkinter.Tk()
 	app = gui.GUI(root)
 
-	
-	#Test suite
-	#test(app)
-
+		
 	root.mainloop()
 
 
 def test(app):
 
+	"""
+	Test suite for application
+	"""
+
+	
 	opacity = app.opacity_scale.get()
 	print opacity
 	
