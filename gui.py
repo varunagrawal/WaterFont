@@ -285,7 +285,7 @@ class GUI:
 		
 		
 	# Get the font from the user
-	def getfont(self, fl):
+	def get_font(self, fl):
 
 		# Change the initial dir for Windows
 		self.font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
@@ -329,7 +329,7 @@ class GUI:
 		
 
 	# function to be called when mouse is clicked
-	def getcoords(self, event, v):
+	def get_coords(self, event, v):
 		
 		self.x, self.y = self.canvas.canvasx(event.x), self.canvas.canvasy(event.y)		
 		
