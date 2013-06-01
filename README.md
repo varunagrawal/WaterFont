@@ -1,6 +1,8 @@
 WaterFont
 =========
 
+Version 1.0
+
 Watermarking Tool with Dynamic Font selection and multi-image marking.
 
 * Watermarking of Multiple Images in sequence
