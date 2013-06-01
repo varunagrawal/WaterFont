@@ -172,7 +172,6 @@ class GUI:
 		self.canvas.bind("<Button 1>", lambda event: self.getcoords(event, v))
 		
 		# Scroll using Mouse
-		# self.canvas.bind("<MouseWheel>", self.mouse_wheel) # For Windows. Test!!
 		self.canvas.bind("<Button 4>", lambda event : self.canvas.yview("scroll", -1, "units"))
 		self.canvas.bind("<Button 5>", lambda event : self.canvas.yview('scroll', 1, "units"))
 
