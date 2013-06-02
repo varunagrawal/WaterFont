@@ -1,7 +1,7 @@
 WaterFont
 =========
 
-Version 1.0
+Version 1.2
 
 Watermarking Tool with Dynamic Font selection and Multi-image Marking.
 
