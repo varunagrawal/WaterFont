@@ -30,7 +30,7 @@ def watermark(img_file, text, wfont, text_pos, trans):
 	#Open the image file
 	img = Image.open(img_file)
 	
-	#The Text to be written will be white with trans as the alpha value
+	#The Text to be written will be black with trans as the alpha value
 	t_color = (0, 0, 0, trans)
 
 	
