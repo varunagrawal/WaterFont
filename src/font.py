@@ -36,11 +36,9 @@ def watermark(img_file, text, wfont, text_pos, trans):
 	
 	#Specify alpha as 0 to get transparent image on which to write
 	watermark = Image.new("RGBA", img.size, (255, 255, 255, 0))
-
-
+	
 	waterdraw = ImageDraw.Draw(watermark, "RGBA")
 	waterdraw.text(text_pos, text, fill=t_color, font=wfont)
-
 	
 	#watermark.save("watermark.jpg")
 	
@@ -65,7 +63,7 @@ def main():
 	#Transparency of Text
 	trans = 120
 
-	img_file = "orig.jpg"
+	img_file = "../orig.jpg"
 	img = Image.open(img_file)
 	text_pos = (img.size[0]-170, img.size[1]-25)
 
