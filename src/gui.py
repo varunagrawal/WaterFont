@@ -156,13 +156,13 @@ class GUI:
 		font_label.grid(row=4, column=0)
 		
 		# Button to select font
-		font_button = Button(data_frame, text="Select Font", command=lambda: self.getfont(fl))
+		font_button = Button(data_frame, text="Select Font", command=lambda: self.get_font(fl))
 		font_button.grid(row=4, column=1)
 
 
 		# Label for font size
-		font_size_label = Label(data_frame, text="Font size:")
-		font_size_label.grid(row=5, column=0)
+		self.font_size_label = Label(data_frame, text="Font size: 20")
+		self.font_size_label.grid(row=5, column=0)
 		
 		# Entry for font
 		self.font_size_input = Entry(data_frame, width=10)
@@ -241,13 +241,17 @@ class GUI:
 		file_name = os.path.split(self.img_file)
 		wm_file = os.path.join(file_name[0], "wm-"+file_name[1])
 		
-		self.watermark_img.save(wm_file)
 
-		tkMessageBox.showinfo("Image Saved", "Image successfully saved!")
-
+		try:
+			self.watermark_img.save(wm_file)
+			tkMessageBox.showinfo("Image Saved", "Image successfully saved!")
+			
+		except AttributeError, ae:
+			tkMessageBox.showerror("No Watermark", "Image not watermarked")
 
 		
-		
+
+
 	def next_image(self, i):
 
 		"""
@@ -258,6 +262,7 @@ class GUI:
 		self.set_image()
 
 		i.set(self.Files[self.count-1])
+
 
 
 	def set_image(self):
@@ -371,6 +376,8 @@ class GUI:
 			tkMessageBox.showerror("Invalid Font", "Please select a font file.")
 			return
 		
+		
+		self.font_size_label["text"] = "Font size: %d" % self.font_size
 		self.textfont = font.select_font(self.font_file, self.font_size)
 		
 
