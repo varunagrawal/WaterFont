@@ -11,7 +11,7 @@
 from Tkinter import *
 
 import os
-import tkFileDialog, tkMessageBox
+import tkFileDialog, tkMessageBox, tkFont
 import Image, ImageTk
 
 import font
@@ -171,16 +171,24 @@ class GUI:
 		# Button to set font size
 		font_size_btn = Button(data_frame, text="Set Size", command=self.set_font_size)
 		font_size_btn.grid(row=5, column=2)
+
 		
+		# Label for real time font style display
+		self.font_display = StringVar()
+		self.font_display.set("Sample Text")
+		self.font_display_label = Label(data_frame, text="Sample Text",  textvariable=self.font_display)
+		self.font_display_label.grid(row=6, column=1)
+
+
 		
 		# Watermark buttons
 		watermark_button = Button(data_frame, text="Watermark", command=self.watermark_image)
-		watermark_button.grid(row=6, column=0)
+		watermark_button.grid(row=7, column=0)
 		done_button = Button(data_frame, text="Save", command=self.save_image)
-		done_button.grid(row=6, column=1)
+		done_button.grid(row=7, column=1)
 
 		next_button = Button(data_frame, text="Next", command=lambda: self.next_image(i))
-		next_button.grid(row=6, column=2)
+		next_button.grid(row=7, column=2)
 
 		
 		data_frame.pack()
@@ -334,7 +342,7 @@ class GUI:
 		"""
 		
 		
-		self.font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype/ttf-dejavu", title="Choose a font")
+		self.font_file = tkFileDialog.askopenfilename(parent=self.root, initialdir="/usr/share/fonts/truetype", title="Choose a font")
 		
 		font_type = os.path.split(self.font_file)[-1]
 		fl.set(font_type)
@@ -344,15 +352,17 @@ class GUI:
 			self.font_size = int(self.font_size_input.get())
 			
 		except ValueError:
-			tkMessageBox.showerror("Input Error", "Invalid font size. Setting default")
+			#tkMessageBox.showerror("Input Error", "Invalid font size. Setting default")
 			self.font_size = 20
 
 			self.font_size_input.delete(0, END)
 			self.font_size_input.insert(0, 20)
 			
 			
-			
 		self.textfont = font.select_font(self.font_file, self.font_size)
+
+		# Set font of GUI Sample Text label
+		self.font_display_label.config( font=tkFont.Font(family=font_type.split(".")[0],size=self.font_size) )
 
 
 		
@@ -366,7 +376,7 @@ class GUI:
 			self.font_size = int(self.font_size_input.get())
 			
 		except ValueError:
-			tkMessageBox.showerror("Input Error", "Invalid font size. Setting default")
+			#tkMessageBox.showerror("Input Error", "Invalid font size. Setting default")
 			self.font_size = 20
 
 			self.font_size_input.delete(0, END)

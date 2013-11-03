@@ -13,10 +13,14 @@ def select_font( font_path, size ):
 	"""
 	Returns an instance of the ImageFont with the specified font and font size.
 	"""
-	
-	wfont = ImageFont.truetype( font_path, size )
+	try:
+		
+		wfont = ImageFont.truetype( font_path, size )
 
-	return wfont
+		return wfont
+
+	except IOError:
+		wfont = ImageFont.load_default()
 
 
 
